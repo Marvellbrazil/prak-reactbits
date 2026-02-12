@@ -14,6 +14,11 @@ function Login() {
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         // to prevent refresh on submit
         e.preventDefault();
+
+        if (username.length <= 0 || password.length <= 0) {
+            alert('Please input all the fields');
+            return;
+        }
         
         // change loading state to true to indicates the login process is running
         setLoading(true);
@@ -83,7 +88,7 @@ function Login() {
             
             <button
                 type="submit"
-                className="mt-4 bg-blue-600 px-4 py-2 rounded"
+                className="mt-4 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 active:bg-blue-800"
                 disabled={loading}
             >
                 {loading ? 'Logging in...' : 'Login'}
@@ -93,4 +98,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Login;
