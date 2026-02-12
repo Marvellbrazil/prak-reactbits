@@ -160,7 +160,7 @@ function Home() {
 
     return (
         <div className='bg-[#06000f] text-white'>
-            <BGM ref={bgmRef} />
+            {/* <BGM ref={bgmRef} /> */}
             <main ref={scrollContainer} className="h-screen w-full overflow-hidden no-scrollbar">
                 <GradualBlur
                     target='parent'
@@ -373,7 +373,7 @@ function Home() {
 
 export default Home
 
-
+// debugging console
 if (import.meta.env.VITE_CONSOLE_DEBUG == 'true') {
     console.log("CONSOLE DEBUG IS ACTIVE")
     console.log(import.meta.env.VITE_API_URL)
