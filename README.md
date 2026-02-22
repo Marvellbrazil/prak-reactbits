@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 
 <style>
     .get {
@@ -16,7 +16,7 @@
     .delete {
         color: lightcoral;
     }
-</style>
+</style> -->
 
 <h1 align="start">Config Setups</h1>
 
@@ -72,12 +72,12 @@ php artisan serve
     <tbody>
         <tr>
             <td>Index</td>
-            <td><code class="get">GET</code></td>
+            <td><code class="get" style="color: lightgreen;">GET</code></td>
             <td><code>/config</code></td>
         </tr>
         <tr>
             <td>Show</td>
-            <td><code class="put">PUT</code></td>
+            <td><code class="put" style="color: lightsalmon;">PUT</code></td>
             <td><code>/config/{config}</code></td>
         </tr>
     </tbody>
@@ -93,27 +93,27 @@ php artisan serve
     <tbody>
         <tr>
             <td>Index</td>
-            <td><code class="get">GET</code></td>
+            <td><code class="get" style="color: lightgreen;">GET</code></td>
             <td><code>/teams</code></td>
         </tr>
         <tr>
             <td>Show</td>
-            <td><code class="get">GET</code></td>
+            <td><code class="get" style="color: lightgreen;">GET</code></td>
             <td><code>/teams/{team}</code></td>
         </tr>
         <tr>
             <td>Store</td>
-            <td><code class="post">POST</code></td>
+            <td><code class="post" style="color: lightskyblue;">POST</code></td>
             <td><code>/teams</code></td>
         </tr>
         <tr>
             <td>Update</td>
-            <td><code class="put">PUT</code></td>
+            <td><code class="put" style="color: lightsalmon;">PUT</code></td>
             <td><code>/teams/{team}</code></td>
         </tr>
         <tr>
             <td>Destroy</td>
-            <td><code class="delete">DELETE</code></td>
+            <td><code class="delete" style="color: lightcoral;">DELETE</code></td>
             <td><code>/teams/{team}</code></td>
         </tr>
     </tbody>
@@ -129,27 +129,27 @@ php artisan serve
     <tbody>
         <tr>
             <td>Index</td>
-            <td><code class="get">GET</code></td>
+            <td><code class="get" style="color: lightgreen;">GET</code></td>
             <td><code>/members</code></td>
         </tr>
         <tr>
             <td>Show</td>
-            <td><code class="get">GET</code></td>
+            <td><code class="get" style="color: lightgreen;">GET</code></td>
             <td><code>/members/{member}</code></td>
         </tr>
         <tr>
             <td>Store</td>
-            <td><code class="post">POST</code></td>
+            <td><code class="post" style="color: lightskyblue;">POST</code></td>
             <td><code>/members</code></td>
         </tr>
         <tr>
             <td>Update</td>
-            <td><code class="put">PUT</code></td>
+            <td><code class="put" style="color: lightsalmon;">PUT</code></td>
             <td><code>/members/{member}</code></td>
         </tr>
         <tr>
             <td>Destroy</td>
-            <td><code class="delete">DELETE</code></td>
+            <td><code class="delete" style="color: lightcoral;">DELETE</code></td>
             <td><code>/members/{member}</code></td>
         </tr>
     </tbody>
