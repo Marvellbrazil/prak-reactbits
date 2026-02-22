@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import api from "@/API/axios";
-
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -16,7 +17,7 @@ function Login() {
         e.preventDefault();
 
         if (username.length <= 0 || password.length <= 0) {
-            alert('Please input all the fields');
+            toast.warn('Please input all the fields');
             return;
         }
         
@@ -33,16 +34,14 @@ function Login() {
             // catch response after POST
             // success type is boolean
             if (response.data.success) {
-                // save token to localStorage
+                // save token and username to localStorage
                 localStorage.setItem('admin_token', response.data.token);
-
-                // redirect to admin dashboard
-                alert('Login Success');
+                localStorage.setItem('admin_username', response.data.user.username);
                 navigate('/admin/dashboard');
             }
         } catch (error: any) {
             // catch error for rescode in 400 until 499 from API
-            alert('Login Failed ' + error.response?.data?.message || 'try again later');
+            toast.error('Login Failed ' + error.response?.data?.message || 'try again later');
         } finally {
             // set loading state to false
             // to indicate the login process is done
@@ -62,6 +61,7 @@ function Login() {
                     className="border-2 border-white p-2 rounded"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    required
                 />
             </div>
 
@@ -73,6 +73,7 @@ function Login() {
                     className="border-2 border-white p-2 rounded"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
             </div>
 

@@ -25,8 +25,10 @@
     "ogl": "^1.0.11",
     "postprocessing": "^6.38.2",
     "react": "^19.2.0",
+    "react-confirm": "^0.5.0-1",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.0",
+    "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.167.1"

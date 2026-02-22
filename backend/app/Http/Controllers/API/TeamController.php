@@ -42,10 +42,8 @@ class TeamController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Team $team)
     {
-        $team = Team::with('members')->findOrFail($id);
-
         return response()->json([
             'success' => true,
             'data' => $team
@@ -55,13 +53,11 @@ class TeamController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Team $team)
     {
-        $team = Team::with('members')->findOrFail($id);
-
-        $validation = [
+        $validation = $request->validate([
             'name' => 'required|string|max:50'
-        ];
+        ]);
 
         $team->update($validation);
 
@@ -69,22 +65,20 @@ class TeamController extends Controller
             'success' => true,
             'message' => 'Team is successfully updated',
             'data' => $team
-        ], 204);
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Team $team)
     {
-        $team = Team::with('members')->findOrFail($id);
-
         $team->delete();
 
         return response()->json([
             'success' => true,
             'message' => 'Team is successfully deleted',
             'data' => $team
-        ], 204);
+        ], 200);
     }
 }
