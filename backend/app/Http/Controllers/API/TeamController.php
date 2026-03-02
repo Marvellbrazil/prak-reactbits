@@ -27,7 +27,8 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $validation = $request->validate([
-            'name' => 'required|string|max:50'
+            'name' => 'required|string|max:50',
+            'background' => 'required|in:Squares,Letter Glitch,Color Bends'
         ]);
 
         $team = Team::create($validation);
@@ -56,7 +57,8 @@ class TeamController extends Controller
     public function update(Request $request, Team $team)
     {
         $validation = $request->validate([
-            'name' => 'required|string|max:50'
+            'name' => 'required|string|max:50',
+            'background' => 'required|in:Squares,Letter Glitch,Color Bends'
         ]);
 
         $team->update($validation);

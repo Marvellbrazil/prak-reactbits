@@ -9,7 +9,8 @@ class Team extends Model
     protected $table = 'teams';
 
     protected $fillable = [
-        'name'
+        'name',
+        'background'
     ];
 
     public function members()

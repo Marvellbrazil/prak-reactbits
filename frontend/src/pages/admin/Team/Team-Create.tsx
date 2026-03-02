@@ -2,12 +2,13 @@ import { useState } from "react";
 import Sidebar from "@/makeshifts/Sidebar";
 import api from "@/API/axios";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, Layout, Plus } from "lucide-react";
+import { ChevronDown, ChevronLeft, Layout, Plus } from "lucide-react";
 import Footer from "@/makeshifts/Footer";
 import { toast } from "react-toastify";
 
 function TeamCreate() {
     const [teamName, setTeamName] = useState('');
+    const [background, setBackground] = useState('');
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
@@ -24,7 +25,8 @@ function TeamCreate() {
 
         try {
             const response = await api.post('/teams', {
-                name: teamName
+                name: teamName,
+                background: background || 'Squares'
             });
 
             if (response.data.success) {
@@ -45,8 +47,8 @@ function TeamCreate() {
             <main className="grow ml-64 p-8 flex flex-col items-center justify-center">
                 {/* Header & Back Button */}
                 <div className="w-full max-w-2xl mb-8 flex items-center justify-between">
-                    <button 
-                        onClick={() => navigate(-1)} 
+                    <button
+                        onClick={() => navigate(-1)}
                         className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group"
                     >
                         <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
@@ -87,6 +89,29 @@ function TeamCreate() {
                                 />
                             </div>
 
+                            <div className="space-y-2">
+                                <label htmlFor="background" className="text-sm font-semibold text-gray-300 ml-1">
+                                    Background Style
+                                </label>
+                                <div className="relative group">
+                                    <select
+                                        id="background"
+                                        value={background}
+                                        onChange={(e) => setBackground(e.target.value)}
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl mt-1 px-6 py-4 outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 transition-all text-white appearance-none cursor-pointer"
+                                    >
+                                        <option value="Squares" className="bg-gray-900 text-white">Squares</option>
+                                        <option value="Letter Glitch" className="bg-gray-900 text-white">Letter Glitch</option>
+                                        <option value="Color Bends" className="bg-gray-900 text-white">Color Bends</option>
+                                    </select>
+
+                                    {/* Ikon panah kustom agar lebih cantik */}
+                                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500 group-focus-within:text-blue-500 transition-colors">
+                                        <ChevronDown size={20} />
+                                    </div>
+                                </div>
+                            </div>
+
                             <button
                                 type="submit"
                                 disabled={loading}
@@ -107,7 +132,7 @@ function TeamCreate() {
                         </form>
                     </div>
                 </div>
-                <Footer/>
+                <Footer />
             </main>
         </div>
     )

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
+            $table->enum('background', ['Squares', 'Letter Glitch', 'Color Bends'])->default('Squares');
             $table->timestamps();
         });
     }

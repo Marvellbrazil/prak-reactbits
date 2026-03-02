@@ -12,7 +12,11 @@ class TeamMemberController extends Controller
     public function index()
     {
         $members = TeamMember::with('team')->get();
-        return response()->json(['success' => true, 'data' => $members], 200);
+
+        return response()->json([
+            'success' => true,
+            'data' => $members
+        ], 200);
     }
 
     public function store(Request $request)

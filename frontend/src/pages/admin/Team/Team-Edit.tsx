@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import Sidebar from "@/makeshifts/Sidebar";
 import api from "@/API/axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { ChevronLeft, Layout, Loader2, RefreshCw } from "lucide-react";
+import { ChevronDown, ChevronLeft, Layout, Loader2, RefreshCw } from "lucide-react";
 import Footer from "@/makeshifts/Footer";
 import { toast } from "react-toastify";
 
 function TeamEdit() {
     const { id } = useParams<{ id: string }>(); // take id from URL
     const [teamName, setTeamName] = useState('');
+    const [background, setBackground] = useState('');
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(true);
     const [oldTeamName, setOldTeamName] = useState('');
@@ -22,6 +23,7 @@ function TeamEdit() {
             const teamData = teamRes.data.data;
             
             setTeamName(teamData.name);
+            setBackground(teamData.background);
             setOldTeamName(teamData.name);
         } catch (error) {
             navigate('/admin/teams');
@@ -47,7 +49,8 @@ function TeamEdit() {
 
         try {
             const response = await api.put(`/teams/${id}`, {
-                name: teamName
+                name: teamName,
+                background: background || 'Squares'
             });
 
             if (response.data.success) {
@@ -110,6 +113,28 @@ function TeamEdit() {
                                     required
                                     autoComplete="off"
                                 />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label htmlFor="background" className="text-sm font-semibold text-gray-300 ml-1">
+                                    Background Style
+                                </label>
+                                <div className="relative group">
+                                    <select
+                                        id="background"
+                                        value={background}
+                                        onChange={(e) => setBackground(e.target.value)}
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl mt-1 px-6 py-4 outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 transition-all text-white appearance-none cursor-pointer"
+                                    >
+                                        <option value="Squares" className="bg-gray-900 text-white">Squares</option>
+                                        <option value="Letter Glitch" className="bg-gray-900 text-white">Letter Glitch</option>
+                                        <option value="Color Bends" className="bg-gray-900 text-white">Color Bends</option>
+                                    </select>
+
+                                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500 group-focus-within:text-blue-500 transition-colors">
+                                        <ChevronDown size={20} />
+                                    </div>
+                                </div>
                             </div>
 
                             <button

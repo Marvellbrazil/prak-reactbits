@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 interface Team {
     id: number;
     name: string;
+    background: string;
     members: TeamMember[];
 }
 
@@ -136,13 +137,16 @@ const Team = () => {
                     teams.length > 0 ? (
                         <div className="space-y-12 pb-10">
                             {
-                                teams.map((team) => {
+                                [...teams].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })).map((team) => {
                                     return (
                                         <div key={team.id} className="space-y-4">
                                             <div className="flex items-center justify-between border-l-4 border-blue-500 pl-4">
                                                 <h2 className="text-2xl inline-flex font-bold uppercase tracking-wider items-center">
                                                     {team.name}
-                                                    <div className="flex ml-4 gap-2">
+                                                    <h3 className="text-lg inline-flex font-semibold uppercase tracking-wider items-center text-white/50 ml-2">
+                                                        ({team.background})
+                                                    </h3>
+                                                    <div className="flex ml-2 gap-2">
                                                         <Link title='Edit Team Name' to={`/admin/teams/${team.id}/edit`} className='text-gray-500 hover:text-yellow-400 transition-colors'>
                                                             <SquarePen size={20} />
                                                         </Link>
@@ -163,7 +167,7 @@ const Team = () => {
                                             {/* members */}
                                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                                 {
-                                                    team.members.map((member) => {
+                                                    [...team.members].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })).map((member) => {
                                                         return (
                                                             <div key={member.id} className="group bg-white/5 border border-white/10 p-5 rounded-3xl hover:bg-white/10 hover:border-blue-500/50 transition-all duration-300 relative overflow-hidden">
                                                                 <div className="absolute -right-4 -top-4 w-16 h-16 bg-blue-500/10 blur-2xl group-hover:bg-blue-500/20 transition-all"></div>
