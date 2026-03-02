@@ -2,13 +2,14 @@ import api from "@/API/axios";
 import Footer from "@/makeshifts/Footer";
 import Sidebar from "@/makeshifts/Sidebar";
 import { ChevronLeft, ImageIcon, Layout, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function TeamMemberCreate() {
     const { teamId } = useParams<{ teamId: string }>();
 
+    const [teamName, setTeamName] = useState('');
     const [name, setName] = useState('');
     const [role, setRole] = useState('');
     const [image, setImage] = useState<File | null>(null);
@@ -17,8 +18,21 @@ function TeamMemberCreate() {
 
     const navigate = useNavigate();
 
+    const fetchTeamName = async () => {
+        try {
+            const teamNameRes = await api.get(`/teams/${teamId}`);
+            setTeamName(teamNameRes.data.data.name);
+        } catch (error) {
+            toast.error(`Failed: ${error}`);
+        }
+    };
+
+    useEffect(() => {
+        fetchTeamName();
+    }, [teamId, navigate]);
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
+        if (e.target.files?.[0]) {
             const file = e.target.files[0];
             setImage(file);
             setPreview(URL.createObjectURL(file));
@@ -90,7 +104,7 @@ function TeamMemberCreate() {
                             </div>
                             <div>
                                 <h1 className="text-2xl font-bold">Add a new member to the team</h1>
-                                <p className="text-gray-400 text-sm">Add member to TEAMID:{teamId}</p>
+                                <p className="text-gray-400 text-sm">Add member to {teamName}</p>
                             </div>
                         </div>
 
