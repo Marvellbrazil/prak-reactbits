@@ -15,6 +15,8 @@ import Card from '../makeshifts/Card'
 import { Slide, toast, ToastContainer } from 'react-toastify'
 import api from '@/API/axios'
 import BGM, { BGMRef } from '@/makeshifts/BGM'
+import LetterGlitch from '@/components/LetterGlitch'
+import ColorBends from '@/components/ColorBends'
 
 // import { competition_name, year, linkLabel, link } from '../data/StaticData';
 
@@ -23,6 +25,7 @@ const linkIcon = <Instagram className="w-6 h-6 group-hover:translate-y-1 transit
 interface Team {
     id: number;
     name: string;
+    background: string;
     members: TeamMember[];
 }
 
@@ -46,7 +49,7 @@ function Home() {
     const lenisRef = useRef<Lenis | null>(null);
     const activeSessionIndex = useRef(0);
 
-    const [teams, setTeams] = useState<Team[] | null>([]);
+    const [teams, setTeams] = useState<Team[]>([]);
     const [config, setConfig] = useState<Config | null>(null);
 
     const [fetching, setFetching] = useState(true);
@@ -65,6 +68,47 @@ function Home() {
             toast.error('Failed to fetch data: ' + error)
         } finally {
             setFetching(false);
+        }
+    };
+
+    const sectionBackground = (teamBackground: any) => {
+        if (teamBackground === 'Squares') {
+            return (
+                <Squares
+                	speed={0.63}
+                	squareSize={40}
+                	direction='diagonal' // up, down, left, right, diagonal
+                	borderColor='#fff'
+                	hoverFillColor='#222'
+                	hoverColor="#060010"
+                	size={50}
+                />
+            );
+        } else if (teamBackground === 'Letter Glitch') {
+            return (
+                <LetterGlitch
+                	glitchSpeed={50}
+                	centerVignette={true}
+                	outerVignette={true}
+                	smooth={true}
+                />
+            );
+        } else {
+            return (
+                <ColorBends
+                	colors={["#F26076", "#FF9760", "#FFD150", "#458B73"]}
+                    rotation={-9}
+                	speed={0.2}
+                	scale={1}
+                	frequency={1}
+                	warpStrength={0}
+                	mouseInfluence={0}
+                	parallax={0}
+                	noise={0.41}
+                	transparent
+                	autoRotate={-5}
+                />
+            );
         }
     };
 
@@ -110,12 +154,12 @@ function Home() {
         const triggerAudio = () => {
             bgmRef.current?.playBGM();
             const events = ['wheel', 'mousemove', 'mousedown', 'touchstart', 'keydown'];
-            events.forEach(ev => window.removeEventListener(ev, triggerAudio));
+            events.forEach(ev => globalThis.removeEventListener(ev, triggerAudio));
         };
 
         wrapper.addEventListener('wheel', handleWheel, { passive: false });
         const audioEvents = ['wheel', 'mousemove', 'mousedown', 'touchstart', 'keydown'];
-        audioEvents.forEach(ev => window.addEventListener(ev, triggerAudio));
+        audioEvents.forEach(ev => globalThis.addEventListener(ev, triggerAudio));
 
         let rfId: number;
         const raf = (time: number) => {
@@ -126,7 +170,7 @@ function Home() {
 
         return () => {
             wrapper.removeEventListener('wheel', handleWheel);
-            audioEvents.forEach(ev => window.removeEventListener(ev, triggerAudio));
+            audioEvents.forEach(ev => globalThis.removeEventListener(ev, triggerAudio));
             cancelAnimationFrame(rfId);
             lenis.destroy();
         };
@@ -187,7 +231,7 @@ function Home() {
                                 <SplitText className='text-2xl font-semibold' text='Get Started' />
                                 <ArrowDown className="w-6 h-6" />
                             </div>
-                            <div className='cursor-target place-items-center py-2 hover:bg-white border-4 border-transparent hover:border-black hover:text-black' onClick={() => window.open(config?.link, '_blank')}>
+                            <div className='cursor-target place-items-center py-2 hover:bg-white border-4 border-transparent hover:border-black hover:text-black' onClick={() => globalThis.open(config?.link, '_blank')}>
                                 <SplitText className='text-2xl font-semibold' text={`${config?.label_link}`} />
                                 {linkIcon}
                             </div>
@@ -195,11 +239,11 @@ function Home() {
                     </div>
                 </section>
                 {
-                    teams?.map((team, index) => {
+                    [...teams].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })).map((team, index) => {
                         return (
                             <section className="relative h-screen w-full bg-black flex flex-col items-center justify-center shrink-0" key={index} id={`section-${index + 1}`}>
                                 <div className="absolute inset-0 z-0">
-                                    <Squares speed={0.63} squareSize={40} borderColor='#fff' hoverColor="#060010" />
+                                    {sectionBackground(team.background)}
                                 </div>
 
                                 <div className='relative z-10 text-center scale-[0.70] transform-gpu w-full flex flex-col items-center'>
