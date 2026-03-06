@@ -5,8 +5,6 @@ interface ImportMetaEnv {
   readonly VITE_PORT: number;
   readonly CONSOLE_DEBUG: string;
   readonly VITE_BASE_URL: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
+  readonly VITE_ADMIN_PANEL_NAME: string;
+  readonly VITE_ADMIN_PANEL_VERSION: number;
 }

@@ -48,7 +48,7 @@ function TeamMemberEdit() {
     }, [teamId, memberId, navigate]);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
+        if (e.target.files?.[0]) {
             const file = e.target.files[0];
             setImage(file);
             setPreview(URL.createObjectURL(file));
@@ -83,10 +83,10 @@ function TeamMemberEdit() {
 
             if (response.data.success) {
                 navigate('/admin/teams');
-                toast.success(`${oldName} is successfully updated`);
+                toast.success(`${oldName} in ${teamName} is successfully updated`);
             }
         } catch (error) {
-            toast.error(`Failed to add ${name}: ${error}`);
+            toast.error(`Failed to update ${name} in ${teamName}: ${error}`);
         } finally {
             setLoading(false);
         }

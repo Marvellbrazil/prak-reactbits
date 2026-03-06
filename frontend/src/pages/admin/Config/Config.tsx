@@ -4,6 +4,7 @@ import Sidebar from '@/makeshifts/Sidebar';
 import api from '@/API/axios';
 import { Loader2, RefreshCw } from 'lucide-react';
 import { toast } from 'react-toastify';
+import Footer from '@/makeshifts/Footer';
 
 function Config() {
     const [competitionName, setCompetitionName] = useState('');
@@ -180,6 +181,7 @@ function Config() {
                         </form>
                     </div>
                 </div>
+                <Footer isCenter={false} />
             </main>
         </div>
     );

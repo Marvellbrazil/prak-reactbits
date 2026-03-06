@@ -6,6 +6,7 @@ import { Users, Layout, Trophy } from 'lucide-react';
 import StatCard from '@/makeshifts/StatCard';
 import Greetings from '@/data/Greetings';
 import { Link } from 'react-router-dom';
+import Footer from '@/makeshifts/Footer';
 
 interface Stats {
     totalTeams: number;
@@ -97,6 +98,7 @@ function Dashboard() {
                         </Link>
                     </div>
                 </div>
+                <Footer/>
             </main>
         </div>
     );

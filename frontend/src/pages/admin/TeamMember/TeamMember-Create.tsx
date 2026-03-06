@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import api from "@/API/axios";
 import Footer from "@/makeshifts/Footer";
 import Sidebar from "@/makeshifts/Sidebar";
@@ -67,10 +68,10 @@ function TeamMemberCreate() {
 
             if (response.data.success) {
                 navigate('/admin/teams');
-                toast.success(`${name} is successfully added`);
+                toast.success(`${name} is successfully added to ${teamName}`);
             }
         } catch (error) {
-            toast.error(`Failed to add ${name} ${error}`);
+            toast.error(`Failed to add ${name} to ${teamName} | ${error}`);
         } finally {
             setLoading(false);
         }

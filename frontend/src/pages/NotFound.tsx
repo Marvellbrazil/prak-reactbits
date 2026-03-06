@@ -5,7 +5,7 @@ const NotFound = () => {
             <br />
             <button
                 className="bg-blue-600 ml-3 hover:bg-blue-700 active:bg-blue-800 p-2"
-                onClick={() => window.history.back()}
+                onClick={() => globalThis.history.back()}
             >
                 Go Back
             </button>

@@ -1,9 +1,19 @@
-function Footer() {
+function Footer({ isCenter = true }) {
     return (
-        <p className="mt-8 text-gray-500 text-sm">
-            SKAdmin Panel v0.1
-        </p>
-    );
+        <>
+            {
+                isCenter ? (
+                    <p className="mt-8 text-gray-500 text-sm text-center">
+                        {import.meta.env.VITE_ADMIN_PANEL_NAME} v{import.meta.env.VITE_ADMIN_PANEL_VERSION}
+                    </p>
+                ) : (
+                    <p className="mt-8 text-gray-500 text-sm">
+                        {import.meta.env.VITE_ADMIN_PANEL_NAME} v{import.meta.env.VITE_ADMIN_PANEL_VERSION}
+                    </p>
+                )
+            }
+        </>
+    )
 }
 
 export default Footer;

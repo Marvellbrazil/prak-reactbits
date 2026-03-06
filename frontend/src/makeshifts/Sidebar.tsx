@@ -33,7 +33,7 @@ const Sidebar = () => {
                 <div className="bg-white p-2 rounded-lg">
                     <img src="/icon.png" alt="Icon" style={{ width: '36px', height: '36px' }} />
                 </div>
-                <span className="font-bold text-xl text-white tracking-tight">SKAdmin Panel</span>
+                <span className="font-bold text-xl text-white tracking-tight">{import.meta.env.VITE_ADMIN_PANEL_NAME}</span>
             </div>
 
             <nav className="grow p-4 space-y-2">

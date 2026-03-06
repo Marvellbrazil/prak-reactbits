@@ -7,6 +7,7 @@ import StatCard from '@/makeshifts/StatCard';
 import { Link } from 'react-router-dom';
 import { Confirmation } from '@/makeshifts/Confirmation';
 import { toast } from 'react-toastify';
+import Footer from '@/makeshifts/Footer';
 
 // interfaces
 interface Team {
@@ -231,6 +232,7 @@ const Team = () => {
                         </div>
                     )
                 }
+                <Footer/>
             </main>
         </div>
     );
