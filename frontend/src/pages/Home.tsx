@@ -75,38 +75,38 @@ function Home() {
         if (teamBackground === 'Squares') {
             return (
                 <Squares
-                	speed={0.63}
-                	squareSize={40}
-                	direction='diagonal' // up, down, left, right, diagonal
-                	borderColor='#fff'
-                	hoverFillColor='#222'
-                	hoverColor="#060010"
-                	size={50}
+                    speed={0.63}
+                    squareSize={40}
+                    direction='diagonal' // up, down, left, right, diagonal
+                    borderColor='#fff'
+                    hoverFillColor='#222'
+                    hoverColor="#060010"
+                    size={50}
                 />
             );
         } else if (teamBackground === 'Letter Glitch') {
             return (
                 <LetterGlitch
-                	glitchSpeed={50}
-                	centerVignette={true}
-                	outerVignette={true}
-                	smooth={true}
+                    glitchSpeed={50}
+                    centerVignette={true}
+                    outerVignette={true}
+                    smooth={true}
                 />
             );
         } else {
             return (
                 <ColorBends
-                	colors={["#F26076", "#FF9760", "#FFD150", "#458B73"]}
+                    colors={["#F26076", "#FF9760", "#FFD150", "#458B73"]}
                     rotation={-9}
-                	speed={0.2}
-                	scale={1}
-                	frequency={1}
-                	warpStrength={0}
-                	mouseInfluence={0}
-                	parallax={0}
-                	noise={0.41}
-                	transparent
-                	autoRotate={-5}
+                    speed={0.2}
+                    scale={1}
+                    frequency={1}
+                    warpStrength={0}
+                    mouseInfluence={0}
+                    parallax={0}
+                    noise={0.41}
+                    transparent
+                    autoRotate={-5}
                 />
             );
         }
@@ -252,7 +252,7 @@ function Home() {
                                     </h1>
                                     <div className='flex flex-wrap justify-center gap-16 px-10 max-w-7xl'>
                                         {
-                                            team.members.map((member, idx) => {
+                                            [...team.members].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })).map((member, idx) => {
                                                 return (
                                                     <Card
                                                         key={idx}
