@@ -1,4 +1,3 @@
---- 1. MEMBERSIHKAN DATABASE (Hapus yang lama agar tidak konflik) ---
 DROP TABLE IF EXISTS "public"."team_members" CASCADE;
 DROP TABLE IF EXISTS "public"."teams" CASCADE;
 DROP TABLE IF EXISTS "public"."personal_access_tokens" CASCADE;
@@ -20,9 +19,6 @@ DROP SEQUENCE IF EXISTS "public"."team_members_id_seq";
 DROP SEQUENCE IF EXISTS "public"."teams_id_seq";
 DROP SEQUENCE IF EXISTS "public"."users_id_seq";
 
---- 2. PEMBUATAN STRUKTUR TABEL ---
-
--- Tabel Cache & Jobs (Standar Laravel)
 CREATE TABLE "public"."cache" ("key" varchar(255) NOT NULL, "value" text NOT NULL, "expiration" int4 NOT NULL, PRIMARY KEY ("key"));
 CREATE INDEX cache_expiration_index ON public.cache (expiration);
 
@@ -112,7 +108,6 @@ CREATE TABLE "public"."personal_access_tokens" (
     PRIMARY KEY ("id")
 );
 
--- Tabel Inti (Urutan: Teams dulu baru Team_Members)
 CREATE SEQUENCE teams_id_seq;
 CREATE TABLE "public"."teams" (
     "id" int8 NOT NULL DEFAULT nextval('teams_id_seq'::regclass),
@@ -135,9 +130,6 @@ CREATE TABLE "public"."team_members" (
     PRIMARY KEY ("id")
 );
 
---- 3. PENGISIAN DATA (INSERT) ---
-
--- INDUK DULU (Teams)
 INSERT INTO "public"."teams" ("id", "name", "created_at", "updated_at") VALUES
 (6, 'TIK SKARIGA Jaya', '2026-02-13 07:02:49', '2026-02-13 08:14:35'),
 (2, 'Inspire Code', '2026-02-13 04:15:00', '2026-02-13 08:16:48'),
@@ -147,7 +139,6 @@ INSERT INTO "public"."teams" ("id", "name", "created_at", "updated_at") VALUES
 (11, 'Zenless Zone Zero', '2026-02-21 13:36:25', '2026-02-22 00:56:47'),
 (23, 'The Kessoku Coder', '2026-02-22 02:09:47', '2026-02-22 02:14:09');
 
--- BARU ANAK (Team Members)
 INSERT INTO "public"."team_members" ("id", "team_id", "name", "role", "image", "created_at", "updated_at") VALUES
 (7, 7, 'M. Bahruddin Nauvaldy Maulana', 'Developer Operations', '1770981492_698f08748c79d.jpeg', '2026-02-13 11:18:12', '2026-02-13 11:18:12'),
 (8, 7, 'Gamaliel Andika Aprilian', 'System Administrator', '1770981527_698f0897340b2.jpg', '2026-02-13 11:18:47', '2026-02-13 11:18:47'),
@@ -175,13 +166,11 @@ INSERT INTO "public"."team_members" ("id", "team_id", "name", "role", "image", "
 (38, 23, 'Ryo Yamada', 'Backend Developer', '1771726346_699a660a8189f.jpg', '2026-02-22 02:12:26', '2026-02-22 02:12:26'),
 (39, 11, 'Belle', 'Frontend Developer', '1771726373_699a662597490.jpg', '2026-02-22 02:12:53', '2026-02-22 02:12:53');
 
--- Data Lainnya (Admin, Configs, Migrations)
 INSERT INTO "public"."users" ("id", "username", "password", "created_at", "updated_at") VALUES (1, 'admin', '$2y$12$lbv9oTiIKZpzF5ykHMNYueTTPpc5hKd6YKsdv4FUid45GRaiMK8gi', '2026-02-13 04:01:17', '2026-02-13 04:01:17');
 INSERT INTO "public"."configs" ("id", "competition_name", "year", "label_link", "link", "created_at", "updated_at") VALUES (1, 'LINQ Singapore Hackathon', 2027, 'Visit our Instagram', 'https://instagram.com/skariga_official', '2026-02-13 13:51:20', '2026-02-22 01:14:14');
 INSERT INTO "public"."migrations" ("id", "migration", "batch") VALUES (1, '0001_01_01_000001_create_cache_table', 1), (2, '0001_01_01_000002_create_jobs_table', 1), (3, '2026_02_11_063803_create_users_table', 1), (4, '2026_02_11_064836_create_configs_table', 1), (5, '2026_02_11_065030_create_teams_table', 1), (6, '2026_02_11_065102_create_team_members_table', 1), (7, '2026_02_11_070520_create_personal_access_tokens_table', 1);
 INSERT INTO "public"."personal_access_tokens" ("id", "tokenable_type", "tokenable_id", "name", "token", "abilities", "last_used_at", "expires_at", "created_at", "updated_at") VALUES (26, 'App\Models\Auth\User', 1, 'admin-token', '3f83d287b31da6acaa587999fa307c950767006dfbb34adbda1dfcf9c032a378', '["*"]', '2026-02-22 02:14:09', NULL, '2026-02-22 01:04:10', '2026-02-22 02:14:09');
 
---- FIX SEQUENCE (Penting agar Laravel tidak error saat tambah data baru lewat UI) ---
 SELECT setval('teams_id_seq', (SELECT MAX(id) FROM teams));
 SELECT setval('team_members_id_seq', (SELECT MAX(id) FROM team_members));
 SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));
