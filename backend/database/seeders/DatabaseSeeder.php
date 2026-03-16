@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Auth\User;
+// use App\Models\Auth\User;
+use Database\Seeders\ConfigSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,11 +18,6 @@ class DatabaseSeeder extends Seeder
         DB::statement('TRUNCATE TABLE team_members CASCADE');
         DB::statement('TRUNCATE TABLE teams CASCADE');
         DB::statement('TRUNCATE TABLE users CASCADE');
-
-        User::create([
-            'username' => 'admin',
-            'password' => Hash::make('admin1234'),
-        ]);
 
         $this->call([
             ConfigSeeder::class,
