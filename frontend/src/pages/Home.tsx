@@ -258,7 +258,7 @@ function Home() {
                                                         key={idx}
                                                         title={member.name}
                                                         role={member.role}
-                                                        src={`http://localhost:8000/storage/members/${member.image}`}
+                                                        src={`${import.meta.env.VITE_API_URL}/storage/members/${member.image}`}
                                                         alt={member.name}
                                                         link=''
                                                     />

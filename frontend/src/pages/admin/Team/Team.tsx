@@ -175,7 +175,7 @@ const Team = () => {
                                                                 <div className="flex items-center gap-4 text-left">
                                                                     <div className="relative flex-none">
                                                                         <img
-                                                                            src={member.image.startsWith('http') ? member.image : `http://localhost:8000/storage/members/${member.image}`}
+                                                                            src={`${import.meta.env.VITE_API_URL}/storage/members/${member.image}`}
                                                                             alt={member.name}
                                                                             className="w-16 h-16 rounded-2xl object-cover border-2 border-white/10 group-hover:border-blue-500 transition-all" />
                                                                         <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 border-4 border-[#05010d] rounded-full"></div>
