@@ -246,7 +246,7 @@ function Home() {
                                     {sectionBackground(team.background)}
                                 </div>
 
-                                <div className='relative z-10 text-center scale-[0.70] transform-gpu w-full flex flex-col items-center'>
+                                <div className='relative z-10 text-center scale-[0.60] transform-gpu w-full flex flex-col items-center'>
                                     <h1 className='inline-block cursor-target text-5xl font-semibold p-6 mb-16 backdrop-blur-xs bg-white/5 border-4 border-transparent hover:border-black hover:bg-white hover:text-black'>
                                         {config?.competition_name} {config?.year} Lineup | Batch {index + 1} | {team.name}
                                     </h1>
